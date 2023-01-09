@@ -1,0 +1,74 @@
+class Solution {
+public:
+        int solve(long long  a,long long  b,string notation)
+        {
+                if(notation=="+")
+                {
+                        return (b+a);//b-a because stack me dalne pe ulta ho ja rha hai so 
+                }
+                if(notation=="-")
+                {
+                        return (b-a);
+                }
+                if(notation=="*")
+                {
+                        return (a*b);
+                }
+                return (b/a);
+        }
+    int evalRPN(vector<string>& tokens) {
+            // stack<long long >s;
+            // for(auto value:tokens)
+            // {
+            //         if(value=="+"||value=="-"||value=="*"||value=="/")
+            //         {
+            //                 long long  a=s.top();
+            //                 s.pop();
+            //                 long long  b=s.top();
+            //                 s.pop();
+            //                 long long  topush=solve(a,b,value);
+            //                 s.push(topush);
+            //         }
+            //         else
+            //         {
+            //                 //agar digit ho to ise integer me typecast kar do or stack me store kar do 
+            //                 s.push(stoi(value));
+            //         }
+            // }
+            // return s.top();
+     stack<string >s;
+    for(auto x:tokens)
+    {
+        if(x=="+"||x=="*"||x=="-"||x=="/")
+        {
+            long long a=stol(s.top());
+            s.pop();
+            long long   b=stol(s.top());
+            s.pop();
+                string ans=to_string(solve(a,b,x));
+            if(x=="+")
+            {
+                s.push(to_string(b+a));
+            }
+             else if(x=="-")
+            {
+                s.push(to_string(b-a));
+            }
+           else if(x=="*")
+            {
+                s.push(to_string(b*a));
+            }
+            else
+            {
+                s.push(to_string(b/a));
+            }
+        }  
+        else
+        {
+            s.push(x);
+        }
+    }
+    return stol(s.top());
+        
+    }
+};
